@@ -149,7 +149,19 @@ class RSSUpdater:
         
         language = ET.SubElement(channel, "language")
         language.text = "ja"
-        
+        # メールアドレス（必須）
+    	managing_editor = ET.SubElement(channel, "managingEditor")
+    	managing_editor.text = "sakuraryota1118@gmail.com"
+    
+    	# カバーアート（必須）
+    	image = ET.SubElement(channel, "image")
+    	image_url = ET.SubElement(image, "url")
+    	image_url.text = f"https://{self.github_repo.split('/')[0]}.github.io/{self.github_repo.split('/')[1]}/podcast-cover.jpg"
+    	image_title = ET.SubElement(image, "title")
+    	image_title.text = "AIニュースポッドキャスト"
+    	image_link = ET.SubElement(image, "link")
+    	image_link.text = f"https://github.com/{self.github_repo}"
+
         # iTunes固有のタグ
         itunes_author = ET.SubElement(channel, "itunes:author")
         itunes_author.text = "AI Podcast Generator"
