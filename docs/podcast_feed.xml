@@ -1,5 +1,4 @@
 <?xml version='1.0' encoding='utf-8'?>
-<!-- Updated: 2025-10-12 for Spotify for Podcasters -->
 <rss version="2.0" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>AIニュースポッドキャスト</title>
@@ -24,10 +23,10 @@
     <webMaster>sakuraryota1118@gmail.com (sacra0-0)</webMaster>
     <item>
       <title>AIニュースポッドキャスト - 2025年10月12日</title>
-      <description>**ポッドキャスト台本：AI最新ニュース解説**  **日付:** 2024年10月27日  **オープニング**  Speaker 1: こんにちは！AI最新ニュースをお届けする「AIフロンティア」へようこそ。今日のホストは私、花子です。  Speaker 2: そして解説は私、太郎です。今日も最新のAI動向を分かりやすく解説していきます。よろしくお願いします。  Speaker 1: 太郎さん...</description>
-      <pubDate>Sun, 12 Oct 2025 14:46:41 +0000</pubDate>
-      <enclosure url="https://github.com/sacra0-0/ai-podcast-generator/releases/download/latest/podcast_20251012_144640.wav" type="audio/wav" length="12768570" />
-      <guid isPermaLink="false">sacra0-0/ai-podcast-generator-20251012144641</guid>
+      <description>はい、承知いたしました。以下に、上記ニュースを基にしたポッドキャスト台本を作成します。  **ポッドキャスト台本：AI最新ニュース解説 - 2024年〇月〇日**  **開始**  Speaker 1: みなさん、こんにちは！今日のAIニュース解説ポッドキャストへようこそ。ホストの〇〇です。  Speaker 2: 解説担当の〇〇です。よろしくお願いします。  Speaker 1: 今日もAI業界...</description>
+      <pubDate>Sun, 12 Oct 2025 14:53:33 +0000</pubDate>
+      <enclosure url="https://github.com/sacra0-0/ai-podcast-generator/releases/download/latest/podcast_20251012_145332.wav" type="audio/wav" length="9160890" />
+      <guid isPermaLink="false">sacra0-0/ai-podcast-generator-20251012145333</guid>
       <itunes:duration xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd">05:00</itunes:duration>
     </item>
   </channel>
