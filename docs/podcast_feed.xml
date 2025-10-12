@@ -5,9 +5,7 @@
     <description>毎日最新のAIニュースを自動生成でお届けするポッドキャスト</description>
     <link>https://github.com/sacra0-0/ai-podcast-generator</link>
     <language>ja</language>
-    <managingEditor>sakuraryota1118@gmail.com (sacra0-0)</managingEditor>
-    <webMaster>sakuraryota1118@gmail.com (sacra0-0)</webMaster>
-    <copyright>Copyright 2025 sacra0-0. All rights reserved.</copyright>
+    <managingEditor>sakuraryota1118@gmail.com (AI Podcast Generator)</managingEditor>
     <image>
       <url>https://sacra0-0.github.io/ai-podcast-generator/podcast-cover.png</url>
       <title>AIニュースポッドキャスト</title>
@@ -21,12 +19,14 @@
       <itunes:name>sacra0-0</itunes:name>
       <itunes:email>sakuraryota1118@gmail.com</itunes:email>
     </itunes:owner>
+    <copyright>Copyright 2025 sacra0-0. All rights reserved.</copyright>
+    <webMaster>sakuraryota1118@gmail.com (sacra0-0)</webMaster>
     <item>
       <title>AIニュースポッドキャスト - 2025年10月12日</title>
-      <description>``` Speaker 1: 皆さん、こんにちは！2024年5月15日、AI最新ニュースをお届けするポッドキャストへようこそ！ 今日もAIの最前線を、分かりやすく解説していきます。ナビゲーターは私、サクラです。そして、解説はいつものようにタロウさん、よろしくお願いします！  Speaker 2: 皆さん、こんにちは。タロウです。今日もホットなAIニュースを紐解いていきましょう。  Speaker...</description>
-      <pubDate>Sun, 12 Oct 2025 14:06:14 +0000</pubDate>
-      <enclosure url="https://github.com/sacra0-0/ai-podcast-generator/releases/download/latest/podcast_20251012_140611.wav" type="audio/wav" length="13242810" />
-      <guid isPermaLink="false">sacra0-0/ai-podcast-generator-20251012140614</guid>
+      <description>``` **ポッドキャスト台本：AI最新ニュース解説**  **日時:** 2024年10月27日  **Speaker 1:** 皆さん、こんにちは！AI最新ニュースをお届けするポッドキャスト、今日のホストは私、アキラです。  **Speaker 2:** そして解説は、AI技術に詳しいケンです。今日もよろしくお願いします。  **Speaker 1:** ケンさん、よろしくお願いします！今日は...</description>
+      <pubDate>Sun, 12 Oct 2025 14:36:46 +0000</pubDate>
+      <enclosure url="https://github.com/sacra0-0/ai-podcast-generator/releases/download/latest/podcast_20251012_143644.wav" type="audio/wav" length="11176890" />
+      <guid isPermaLink="false">sacra0-0/ai-podcast-generator-20251012143646</guid>
       <itunes:duration xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd">05:00</itunes:duration>
     </item>
   </channel>
