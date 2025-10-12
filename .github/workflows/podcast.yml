@@ -9,6 +9,8 @@ on:
 jobs:
   generate-podcast:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     
     steps:
     - name: チェックアウト
@@ -45,12 +47,15 @@ jobs:
         python update_rss.py
     
     - name: RSS feedをコミット
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         git config user.name "sacra0-0"
         git config user.email "sakuraryota1118@gmail.com"
         git add docs/podcast_feed.xml
         git commit -m "Update RSS feed [skip ci]" || echo "No changes"
-        git push https://${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git HEAD:main
+        git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
+        git push origin HEAD:main
     
     # Spotifyへのアップロード (Spotify Podcasters APIまたはAnchor APIを使用)
     - name: Spotifyにアップロード
