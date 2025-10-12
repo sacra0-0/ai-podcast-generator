@@ -5,6 +5,13 @@
     <description>毎日最新のAIニュースを自動生成でお届けするポッドキャスト</description>
     <link>https://github.com/sacra0-0/ai-podcast-generator</link>
     <language>ja</language>
+    <managingEditor>sakuraryota1118@gmail.com (AI Podcast Generator)</managingEditor>
+<image>
+  <url>https://sacra0-0.github.io/ai-podcast-generator/podcast-cover.png</url>
+  <title>AIニュースポッドキャスト</title>
+  <link>https://github.com/sacra0-0/ai-podcast-generator</link>
+</image>
+<itunes:image href="https://sacra0-0.github.io/ai-podcast-generator/podcast-cover.png"/>
     <ns0:author>AI Podcast Generator</ns0:author>
     <ns0:category text="Technology" />
     <ns0:explicit>false</ns0:explicit>
