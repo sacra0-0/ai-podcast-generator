@@ -1,0 +1,40 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+build/
+dist/
+*.egg-info/
+
+# 生成ファイル
+podcast_*.wav
+script_*.txt
+*.mp3
+*.m4a
+
+# 環境変数
+.env
+.env.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# ログ
+*.log
+
+# 一時ファイル
+tmp/
+temp/
