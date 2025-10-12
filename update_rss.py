@@ -73,6 +73,8 @@ class RSSUpdater:
             tree = ET.parse(self.rss_file)
             root = tree.getroot()
             print("✅ 既存のRSSを読み込み")
+            # 既存のRSSに不足している情報を追加
+            self.ensure_required_fields(root)
         else:
             root = self.create_base_rss()
             tree = ET.ElementTree(root)
@@ -169,7 +171,7 @@ class RSSUpdater:
         
         # iTunes固有のタグ
         itunes_author = ET.SubElement(channel, "itunes:author")
-        itunes_author.text = "AI Podcast Generator"
+        itunes_author.text = "sacra0-0"
         
         itunes_category = ET.SubElement(channel, "itunes:category")
         itunes_category.set("text", "Technology")
@@ -177,7 +179,56 @@ class RSSUpdater:
         itunes_explicit = ET.SubElement(channel, "itunes:explicit")
         itunes_explicit.text = "false"
         
+        # オーナー情報（Spotify for Podcastersで必要）
+        itunes_owner = ET.SubElement(channel, "itunes:owner")
+        itunes_owner_name = ET.SubElement(itunes_owner, "itunes:name")
+        itunes_owner_name.text = "sacra0-0"
+        itunes_owner_email = ET.SubElement(itunes_owner, "itunes:email")
+        itunes_owner_email.text = "sakuraryota1118@gmail.com"
+        
+        # 著作権情報
+        copyright_elem = ET.SubElement(channel, "copyright")
+        copyright_elem.text = "Copyright 2025 sacra0-0. All rights reserved."
+        
+        # ウェブマスター
+        webmaster = ET.SubElement(channel, "webMaster")
+        webmaster.text = "sakuraryota1118@gmail.com (sacra0-0)"
+        
         return rss
+    
+    def ensure_required_fields(self, root):
+        """既存のRSSフィードに必要なフィールドが不足していないか確認し、追加"""
+        channel = root.find("channel")
+        
+        # iTunes owner情報を確認・追加
+        if channel.find("itunes:owner") is None:
+            itunes_owner = ET.SubElement(channel, "itunes:owner")
+            itunes_owner_name = ET.SubElement(itunes_owner, "itunes:name")
+            itunes_owner_name.text = "sacra0-0"
+            itunes_owner_email = ET.SubElement(itunes_owner, "itunes:email")
+            itunes_owner_email.text = "sakuraryota1118@gmail.com"
+            print("✅ iTunes owner情報を追加")
+        
+        # 著作権情報を確認・追加
+        if channel.find("copyright") is None:
+            copyright_elem = ET.SubElement(channel, "copyright")
+            copyright_elem.text = "Copyright 2025 sacra0-0. All rights reserved."
+            print("✅ 著作権情報を追加")
+        
+        # ウェブマスター情報を確認・追加
+        if channel.find("webMaster") is None:
+            webmaster = ET.SubElement(channel, "webMaster")
+            webmaster.text = "sakuraryota1118@gmail.com (sacra0-0)"
+            print("✅ ウェブマスター情報を追加")
+        
+        # iTunes author情報を更新
+        itunes_author = channel.find("itunes:author")
+        if itunes_author is not None:
+            itunes_author.text = "sacra0-0"
+        else:
+            itunes_author = ET.SubElement(channel, "itunes:author")
+            itunes_author.text = "sacra0-0"
+            print("✅ iTunes author情報を追加")
     
     def indent(self, elem, level=0):
         """XMLを見やすく整形"""
