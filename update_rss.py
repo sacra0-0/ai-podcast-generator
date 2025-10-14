@@ -4,6 +4,10 @@ import shutil
 from datetime import datetime
 from xml.etree import ElementTree as ET
 
+# iTunes名前空間を登録
+ET.register_namespace('itunes', 'http://www.itunes.com/dtds/podcast-1.0.dtd')
+ET.register_namespace('content', 'http://purl.org/rss/1.0/modules/content/')
+
 
 class RSSUpdater:
     def __init__(self, github_repo):
@@ -98,16 +102,22 @@ class RSSUpdater:
         
         # RSSフィードを読み込むか新規作成
         if os.path.exists(self.rss_file):
-            tree = ET.parse(self.rss_file)
-            root = tree.getroot()
-            print("✅ 既存のRSSを読み込み")
-            # 既存のRSSに不足している情報を追加
-            self.ensure_required_fields(root)
+            try:
+                tree = ET.parse(self.rss_file)
+                root = tree.getroot()
+                print("✅ 既存のRSSを読み込み")
+                # 既存のRSSに不足している情報を追加
+                self.ensure_required_fields(root)
+            except ET.ParseError as e:
+                print(f"⚠️ 既存RSSの解析エラー: {e}")
+                print("🔄 新しいRSSフィードを作成します")
+                root = self.create_base_rss()
+                tree = ET.ElementTree(root)
         else:
             root = self.create_base_rss()
             tree = ET.ElementTree(root)
             print("✅ 新規RSSを作成")
-        
+
         channel = root.find("channel")
         
         # 新しいエピソードを追加
@@ -144,7 +154,7 @@ class RSSUpdater:
         guid.text = f"{self.github_repo}-{datetime.now().strftime('%Y%m%d%H%M%S')}"
         
         # 再生時間（オプション）
-        duration = ET.SubElement(item, "itunes:duration", {"xmlns:itunes": "http://www.itunes.com/dtds/podcast-1.0.dtd"})
+        duration = ET.SubElement(item, "{http://www.itunes.com/dtds/podcast-1.0.dtd}duration")
         # 仮の再生時間（実際の長さを計算する場合は別途処理が必要）
         duration.text = "05:00"
         
@@ -160,30 +170,32 @@ class RSSUpdater:
     
     def create_base_rss(self):
         """基本的なRSSフィード構造を作成"""
+        itunes_ns = "{http://www.itunes.com/dtds/podcast-1.0.dtd}"
+
         rss = ET.Element("rss")
         rss.set("version", "2.0")
         rss.set("xmlns:itunes", "http://www.itunes.com/dtds/podcast-1.0.dtd")
         rss.set("xmlns:content", "http://purl.org/rss/1.0/modules/content/")
-        
+
         channel = ET.SubElement(rss, "channel")
-        
+
         # ポッドキャストのメタ情報
         title = ET.SubElement(channel, "title")
         title.text = "AIニュースポッドキャスト"
-        
+
         description = ET.SubElement(channel, "description")
         description.text = "毎日最新のAIニュースを自動生成でお届けするポッドキャスト"
-        
+
         link = ET.SubElement(channel, "link")
         link.text = f"https://github.com/{self.github_repo}"
-        
+
         language = ET.SubElement(channel, "language")
         language.text = "ja"
-        
+
         # メールアドレス（必須）
         managing_editor = ET.SubElement(channel, "managingEditor")
         managing_editor.text = "sakuraryota1118@gmail.com (AI Podcast Generator)"
-        
+
         # カバーアート（必須）
         image = ET.SubElement(channel, "image")
         image_url = ET.SubElement(image, "url")
@@ -192,26 +204,26 @@ class RSSUpdater:
         image_title.text = "AIニュースポッドキャスト"
         image_link = ET.SubElement(image, "link")
         image_link.text = f"https://github.com/{self.github_repo}"
-        
+
         # iTunes用のカバーアート
-        itunes_image = ET.SubElement(channel, "itunes:image")
+        itunes_image = ET.SubElement(channel, f"{itunes_ns}image")
         itunes_image.set("href", f"https://{self.github_repo.split('/')[0]}.github.io/{self.github_repo.split('/')[1]}/podcast-cover.png")
-        
+
         # iTunes固有のタグ
-        itunes_author = ET.SubElement(channel, "itunes:author")
+        itunes_author = ET.SubElement(channel, f"{itunes_ns}author")
         itunes_author.text = "sacra0-0"
-        
-        itunes_category = ET.SubElement(channel, "itunes:category")
+
+        itunes_category = ET.SubElement(channel, f"{itunes_ns}category")
         itunes_category.set("text", "Technology")
-        
-        itunes_explicit = ET.SubElement(channel, "itunes:explicit")
+
+        itunes_explicit = ET.SubElement(channel, f"{itunes_ns}explicit")
         itunes_explicit.text = "false"
-        
+
         # オーナー情報（Spotify for Podcastersで必要）
-        itunes_owner = ET.SubElement(channel, "itunes:owner")
-        itunes_owner_name = ET.SubElement(itunes_owner, "itunes:name")
+        itunes_owner = ET.SubElement(channel, f"{itunes_ns}owner")
+        itunes_owner_name = ET.SubElement(itunes_owner, f"{itunes_ns}name")
         itunes_owner_name.text = "sacra0-0"
-        itunes_owner_email = ET.SubElement(itunes_owner, "itunes:email")
+        itunes_owner_email = ET.SubElement(itunes_owner, f"{itunes_ns}email")
         itunes_owner_email.text = "sakuraryota1118@gmail.com"
         
         # 著作権情報
@@ -227,34 +239,35 @@ class RSSUpdater:
     def ensure_required_fields(self, root):
         """既存のRSSフィードに必要なフィールドが不足していないか確認し、追加"""
         channel = root.find("channel")
-        
+        itunes_ns = "{http://www.itunes.com/dtds/podcast-1.0.dtd}"
+
         # iTunes owner情報を確認・追加
-        if channel.find("itunes:owner") is None:
-            itunes_owner = ET.SubElement(channel, "itunes:owner")
-            itunes_owner_name = ET.SubElement(itunes_owner, "itunes:name")
+        if channel.find(f"{itunes_ns}owner") is None:
+            itunes_owner = ET.SubElement(channel, f"{itunes_ns}owner")
+            itunes_owner_name = ET.SubElement(itunes_owner, f"{itunes_ns}name")
             itunes_owner_name.text = "sacra0-0"
-            itunes_owner_email = ET.SubElement(itunes_owner, "itunes:email")
+            itunes_owner_email = ET.SubElement(itunes_owner, f"{itunes_ns}email")
             itunes_owner_email.text = "sakuraryota1118@gmail.com"
             print("✅ iTunes owner情報を追加")
-        
+
         # 著作権情報を確認・追加
         if channel.find("copyright") is None:
             copyright_elem = ET.SubElement(channel, "copyright")
             copyright_elem.text = "Copyright 2025 sacra0-0. All rights reserved."
             print("✅ 著作権情報を追加")
-        
+
         # ウェブマスター情報を確認・追加
         if channel.find("webMaster") is None:
             webmaster = ET.SubElement(channel, "webMaster")
             webmaster.text = "sakuraryota1118@gmail.com (sacra0-0)"
             print("✅ ウェブマスター情報を追加")
-        
+
         # iTunes author情報を更新
-        itunes_author = channel.find("itunes:author")
+        itunes_author = channel.find(f"{itunes_ns}author")
         if itunes_author is not None:
             itunes_author.text = "sacra0-0"
         else:
-            itunes_author = ET.SubElement(channel, "itunes:author")
+            itunes_author = ET.SubElement(channel, f"{itunes_ns}author")
             itunes_author.text = "sacra0-0"
             print("✅ iTunes author情報を追加")
     
