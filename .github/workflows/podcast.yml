@@ -41,19 +41,18 @@ jobs:
           script_*.txt
         retention-days: 30
     
-    - name: RSSフィードを更新
+    - name: RSSフィードを更新し音声ファイルをコピー
       run: |
-        rm -f docs/podcast_feed.xml
         python update_rss.py
-    
-    - name: RSS feedをコミット
+
+    - name: 音声ファイルとRSS feedをGitHub Pagesにデプロイ
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         git config user.name "sacra0-0"
         git config user.email "sakuraryota1118@gmail.com"
-        git add docs/podcast_feed.xml
-        git commit -m "Update RSS feed [skip ci]" || echo "No changes"
+        git add docs/audio/ docs/podcast_feed.xml
+        git commit -m "Update podcast: Add new episode and RSS feed [skip ci]" || echo "No changes"
         git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
         git push origin HEAD:main
     

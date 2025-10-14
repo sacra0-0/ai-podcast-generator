@@ -1,5 +1,6 @@
 import os
 import glob
+import shutil
 from datetime import datetime
 from xml.etree import ElementTree as ET
 
@@ -11,9 +12,11 @@ class RSSUpdater:
         """
         self.github_repo = github_repo
         self.rss_file = "docs/podcast_feed.xml"
-        
+        self.audio_dir = "docs/audio"
+
         # docsディレクトリが存在しない場合は作成
         os.makedirs("docs", exist_ok=True)
+        os.makedirs(self.audio_dir, exist_ok=True)
     
     def get_latest_audio_file(self):
         """最新の音声ファイルを取得"""
@@ -39,7 +42,7 @@ class RSSUpdater:
         """台本から概要を抽出（最初の200文字）"""
         if not script_file or not os.path.exists(script_file):
             return "今日の最新AIニュースをお届けします"
-        
+
         try:
             with open(script_file, "r", encoding="utf-8") as f:
                 content = f.read()
@@ -51,19 +54,44 @@ class RSSUpdater:
         except Exception as e:
             print(f"⚠️ 台本読み込みエラー: {e}")
             return "今日の最新AIニュースをお届けします"
+
+    def copy_audio_to_docs(self, audio_file):
+        """音声ファイルをdocs/audioフォルダにコピー"""
+        if not os.path.exists(audio_file):
+            print(f"❌ 音声ファイルが見つかりません: {audio_file}")
+            return None
+
+        try:
+            audio_filename = os.path.basename(audio_file)
+            destination = os.path.join(self.audio_dir, audio_filename)
+
+            # ファイルをコピー
+            shutil.copy2(audio_file, destination)
+            print(f"✅ 音声ファイルをコピー: {destination}")
+
+            return audio_filename
+        except Exception as e:
+            print(f"❌ ファイルコピーエラー: {e}")
+            return None
     
     def update_rss(self):
         """RSSフィードを更新"""
         print("=" * 50)
         print("📡 RSSフィード更新")
         print("=" * 50)
-        
+
         # 最新の音声ファイルを取得
         latest_audio = self.get_latest_audio_file()
         if not latest_audio:
             print("❌ 更新する音声ファイルがありません")
             return False
-        
+
+        # 音声ファイルをdocs/audioにコピー
+        audio_filename = self.copy_audio_to_docs(latest_audio)
+        if not audio_filename:
+            print("❌ 音声ファイルのコピーに失敗しました")
+            return False
+
         # 最新の台本を取得
         latest_script = self.get_latest_script_file()
         description = self.read_script_summary(latest_script)
@@ -97,10 +125,10 @@ class RSSUpdater:
         pub_date = ET.SubElement(item, "pubDate")
         pub_date.text = datetime.now().strftime("%a, %d %b %Y %H:%M:%S +0000")
         
-        # 音声ファイルのURL（GitHub Releasesを使用）
-        # Note: GitHub Actionsで自動的にReleasesにアップロードされる
-        audio_filename = os.path.basename(latest_audio)
-        audio_url = f"https://github.com/{self.github_repo}/releases/download/latest/{audio_filename}"
+        # 音声ファイルのURL（GitHub Pagesを使用）
+        username = self.github_repo.split('/')[0]
+        repo_name = self.github_repo.split('/')[1]
+        audio_url = f"https://{username}.github.io/{repo_name}/audio/{audio_filename}"
         
         enclosure = ET.SubElement(item, "enclosure")
         enclosure.set("url", audio_url)
