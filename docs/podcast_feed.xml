@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<rss xmlns:ns0="http://www.itunes.com/dtds/podcast-1.0.dtd" version="2.0">
+<rss xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" version="2.0" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>AIニュースポッドキャスト</title>
     <description>毎日最新のAIニュースを自動生成でお届けするポッドキャスト</description>
@@ -11,36 +11,23 @@
       <title>AIニュースポッドキャスト</title>
       <link>https://github.com/sacra0-0/ai-podcast-generator</link>
     </image>
-    <ns0:image href="https://sacra0-0.github.io/ai-podcast-generator/podcast-cover.png" />
-    <ns0:author>sacra0-0</ns0:author>
-    <ns0:category text="Technology" />
-    <ns0:explicit>false</ns0:explicit>
-    <ns0:owner>
-      <ns0:name>sacra0-0</ns0:name>
-      <ns0:email>sakuraryota1118@gmail.com</ns0:email>
-    </ns0:owner>
-    <copyright>Copyright 2025 sacra0-0. All rights reserved.</copyright>
-    <webMaster>sakuraryota1118@gmail.com (sacra0-0)</webMaster>
-    <item>
-      <title>AIニュースポッドキャスト - 2025年10月14日</title>
-      <description>はい、承知いたしました。以下に、ご要望のポッドキャスト台本を作成します。  ---  **ポッドキャストタイトル:** AI最新情報アップデート！夢からチップまで、最新トレンドを深掘り  **日付:** 2024年10月27日  **Speaker 1:** こんにちは！AI最新情報アップデート、今日のホストは私、花子です！  **Speaker 2:** そして解説は、いつもの太郎です。花子さん...</description>
-      <pubDate>Tue, 14 Oct 2025 01:26:53 +0000</pubDate>
-      <enclosure url="https://github.com/sacra0-0/ai-podcast-generator/releases/download/latest/podcast_20251014_012652.wav" type="audio/wav" length="12017850" />
-      <guid isPermaLink="false">sacra0-0/ai-podcast-generator-20251014012653</guid>
-      <ns0:duration>05:00</ns0:duration>
-    </item>
+    <itunes:image href="https://sacra0-0.github.io/ai-podcast-generator/podcast-cover.png" />
+    <itunes:author>sacra0-0</itunes:author>
+    <itunes:category text="Technology" />
+    <itunes:explicit>false</itunes:explicit>
     <itunes:owner>
       <itunes:name>sacra0-0</itunes:name>
       <itunes:email>sakuraryota1118@gmail.com</itunes:email>
     </itunes:owner>
-    <itunes:author>sacra0-0</itunes:author>
+    <copyright>Copyright 2025 sacra0-0. All rights reserved.</copyright>
+    <webMaster>sakuraryota1118@gmail.com (sacra0-0)</webMaster>
     <item>
       <title>AIニュースポッドキャスト - 2025年10月14日</title>
-      <description>## AIまるわかりラジオ - 2024年5月16日号  **Speaker 1:** こんにちは！AIまるわかりラジオ、今日のホストはユキです！今日も最新のAIニュースをわかりやすく解説していきますよ！  **Speaker 2:** こんにちは、解説担当のケンです。ユキさん、今日もよろしくお願いします。  **Speaker 1:** こちらこそ！それでは早速、今日のAIニュースを見ていきまし...</description>
-      <pubDate>Tue, 14 Oct 2025 22:35:45 +0000</pubDate>
-      <enclosure url="https://sacra0-0.github.io/ai-podcast-generator/audio/podcast_20251014_223544.wav" type="audio/wav" length="9518010" />
-      <guid isPermaLink="false">sacra0-0/ai-podcast-generator-20251014223545</guid>
-      <itunes:duration xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd">05:00</itunes:duration>
+      <description>## ポッドキャスト台本：AI最新ニュース解説（2024年5月15日）  **オープニング**  Speaker 1: 皆さん、こんにちは！AI情報局へようこそ！今日は5月15日、水曜日。今日も最新のAIニュースを、わかりやすくお届けします。今日の解説は、お馴染みのAI専門家、田中さんです。田中さん、今日もよろしくお願いします！  Speaker 2: はい、皆さんこんにちは。田中です。今日もよろ...</description>
+      <pubDate>Tue, 14 Oct 2025 22:50:28 +0000</pubDate>
+      <enclosure url="https://sacra0-0.github.io/ai-podcast-generator/audio/podcast_20251014_225025.wav" type="audio/wav" length="13054650" />
+      <guid isPermaLink="false">sacra0-0/ai-podcast-generator-20251014225028</guid>
+      <itunes:duration>05:00</itunes:duration>
     </item>
   </channel>
 </rss>
